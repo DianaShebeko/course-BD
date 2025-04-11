@@ -1,0 +1,54 @@
+{% extends "menu.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Заявка #{{appinform[0]}} </h2>
+    {% if current_user.login == appinform[1] %}
+    <p><a href="{{ url_for('appstatus_red', aplication_id=appinform[0], user_login=appinform[1]) }}" class="btn btn-outline-warning">Изменить статус</a></p>
+    <p>Арендатор: {{ appinform[2] }}</p>
+    <p>Телефон: {{ tenant_phone[0] }}</p>
+    {% else %}
+    <p> Арендодатель: {{ appinform[1] }}</p>
+    <p>Телефон: {{ landlord_phone[0] }}</p>
+    {% endif %}
+    <p>Дата начала аренды: {{ appinform[3].strftime('%d-%m-%Y') }}</p>
+    <p>Дата конца аренды: {{ appinform[4].strftime('%d-%m-%Y') }}</p>
+    <p>Статус заявки: {{ appinform[6] }}</p>
+    <p>Дата отправки заявки: {{ appinform[5].strftime('%d-%m-%Y') }}</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Оборудование(id)</th>
+                <th>Количество</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in appitem %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>{{ render_nav_item('ad_card', item[2], ad_id=item[2]) }}</td>
+                <td>{{ item[3] }}</td>
+                {% if current_user.login == appinform[2] and appinform[6] == 'Черновик'  %}
+                <td><a href="{{ url_for('item_edit',  application_id=item[1], number=item[0], adid=item[2] ) }}" class="btn btn-outline-warning">Редактировать</a></td>
+                <td>
+                    <form method="POST" action="{{ url_for('item_delete',  application_id=item[1], number=item[0], adid=item[2], user_login=appinform[2]) }}">
+                        <button type="submit" class="btn btn-outline-danger">Удалить</button>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if current_user.login == appinform[2] and appinform[6] == 'Черновик'  %}
+    <p><a href="{{ url_for('app_sended',  application_id=appinform[0], user_login=appinform[2]) }}" class="btn btn-primary">Отправить заявку</a></p>
+    <p><a href="{{ url_for('app_edit',  application_id=appinform[0], user_login=appinform[2]) }}" class="btn btn-outline-primary">Редактировать заявку</a></p>
+    <form method="POST" action="{{ url_for('app_delete', application_id=appinform[0], user_login=appinform[2] )}}">
+        <button type="submit" class="btn btn-outline-danger">Удалить заявку</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

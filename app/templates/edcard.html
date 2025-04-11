@@ -1,0 +1,41 @@
+{% extends "menu.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block content %}
+<body>
+    <div class="container mt-5">
+        <h3 class="card-title text-center mb-4"> Редактирования объявления #{{adid}}</h3>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+
+
+            {{ form.category(class="form-select mb-3", value=form.category.data or request.args.get('category')) }}
+            {{ form.manufacturer(class="form-select", value=form.manufacturer.data or request.args.get('manufacturer')) }}
+
+            {% if form.title.errors %}
+            {% for error in form.title.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+            {% endif %}
+            {{render_field(form.title, class="form-control form-control") }}
+
+            {% if form.price.errors %}
+            {% for error in form.price.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+            {% endif %}
+            {{render_field(form.price, class="form-control form-control") }}
+
+            {% if form.description.errors %}
+            {% for error in form.description.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+            {% endif %}
+            {{ render_field(form.description, class="form-control form-control") }}
+
+
+            {{ form.submit(class="btn btn-primary btn") }}
+        </form>
+        </div>
+</body>
+{% endblock %}

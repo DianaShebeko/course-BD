@@ -1,0 +1,68 @@
+{% extends "menu.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    {% if current_user.login == user_login %}
+    <h2 class="text-center">Мой профиль</h2>
+    {% else %}
+    <h2 class="text-center">Профиль пользователя</h2>
+    {% endif %}
+
+    <!-- Отображение данных профиля -->
+    <div class="card text-black bg-w mb-3">
+        <div class="card-header">
+            <h4>Основные данные</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Логин:</strong> {{ user_login }}</p>
+            <p><strong>Имя:</strong> {{ name }}</p>
+            <p><strong>Телефон:</strong> {{ phone }}</p>
+            <p><strong>Рейтинг:</strong> {{ rating }}</p>
+        </div>
+    </div>
+    {% if current_user.login == user_login%}
+    <a href="{{ url_for('edit_user', user_login = user_login) }}" class="btn btn-outline-primary">Редактировать профиль</a>
+    <a href="{{ url_for('create_ad', user_login = user_login) }}" class="btn btn-primary">Создать объявление</a>
+    {% endif %}
+
+    <h3 class="my-4">Объявления пользователя</h3>
+
+    <!-- Фильтрация -->
+    <form method="GET" action="{{ url_for('user_profile', user_login=user_login) }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="category">Категория</label>
+            {{ form.category(class="form-select", value=request.args.get('category')) }}
+        </div>
+
+        <div class="form-group">
+            <label for="manufacturer">Производитель</label>
+            {{ form.manufacturer(class="form-select", value=request.args.get('manufacturer')) }}
+        </div>
+
+        <div class="form-group">
+            <label for="search">Поиск по названию</label>
+            {{ form.search(class="form-control", value=request.args.get('search', '')) }}
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3  mb-3">Фильтровать</button>
+        <a href="{{ url_for('user_profile', user_login=user_login) }}" class="btn btn-secondary mt-3 mb-3">Снять фильтр</a>
+    </form>
+
+    <div class="row">
+        {% for ad in ads %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">{{ ad[4] }}</h6>
+                    <p class="card-text"><strong>{{ ad[5] }} ₽/час</strong></p>
+                    <a href="{{ url_for('ad_card', ad_id=ad[0]) }}" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

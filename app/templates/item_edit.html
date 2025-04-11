@@ -1,0 +1,28 @@
+{% extends "menu.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block content %}
+<body style="background-color: #f7f7f7;">
+    <div class="container" style="min-height: 100vh; display: flex; flex-direction: column;">
+        <div class="card w-100" style="max-width: 1170px; margin: 0 auto; background-color: white;">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">{{title}}</h3>
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+
+                    {% if form.equipmentquantity.errors %}
+                    {% for error in form.equipmentquantity.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                    {% endif %}
+                    {{ render_field(form.equipmentquantity, class="form-control") }}
+
+                    <div class="btn btn-primary">
+                        {{ render_field(form.submit, class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

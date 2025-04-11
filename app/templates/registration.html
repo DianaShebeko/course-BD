@@ -1,0 +1,18 @@
+{% extends "menu.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>{{ title }}</h2>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        {{ render_field(form.name, class="form-control form-control-lg") }}
+        {{ render_field(form.login, placeholder="name@example.com") }}
+        {{ render_field(form.phone, placeholder="+79999999999") }}
+        {{ render_field(form.password) }}
+        {{ render_field(form.confirm) }}
+        {{ form.submit(class="btn btn-primary btn-lg") }}
+    </form>
+
+    </div>
+    {% endblock %}

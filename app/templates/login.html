@@ -1,0 +1,31 @@
+{% extends "menu.html" %}
+
+{% block content %}
+<body style="background-color: #f7f7f7; ">
+    <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="card w-100" style="max-width: 400px; background-color: white;">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Вход в систему</h3>
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.username.label(class="form-label") }}
+                        {{ form.username(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(class="form-control") }}
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.remember_me(class="form-check-input") }}
+                        {{ form.remember_me.label(class="form-check-label") }}
+                    </div>
+                    <div class="d-grid gap-2">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+    {% endblock %}

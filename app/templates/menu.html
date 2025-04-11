@@ -1,0 +1,47 @@
+{% from 'bootstrap5/nav.html' import render_nav_item %}
+{% from 'bootstrap5/utils.html' import render_messages %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% block styles %}
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
+    {% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff; ">
+
+        <div class="container-fluid">
+            <div class="navbar-nav">
+                {{ render_nav_item('index', 'Главная') }}
+                {{ render_nav_item('ads', 'Объявления') }}
+                {% if current_user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Профиль
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-white" aria-labelledby="navbarDarkDropdownMenuLink">
+                        {{ render_nav_item('user_profile', 'Профиль', user_login=current_user.login) }}
+                        {{ render_nav_item('myapplication', 'Мои заявки', user_login=current_user.login) }}
+                        {{ render_nav_item('inapplication', 'Входящие заявки', user_login=current_user.login) }}
+                    </ul>
+                </li>
+                {{ render_nav_item('logout', 'Выйти') }}
+                {% else %}
+                {{ render_nav_item('register', 'Зарегистрироваться') }}
+                {{ render_nav_item('login', 'Войти в мой профиль') }}
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    {{ render_messages() }}
+    {% block content %}  {% endblock %}
+    {% block scripts %}
+    {{ bootstrap.load_js() }}
+    {% endblock %}
+</body>
+
+</html>
+

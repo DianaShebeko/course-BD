@@ -1,0 +1,37 @@
+{% extends "menu.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Входящие заявки</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Арендатор</th>
+                    <th>Дата начала аренды</th>
+                    <th>Дата окончания аренды</th>
+                    <th>Статус заявки:</th>
+                    <th>Дата отправки заявки:</th>
+                    <th>Детали:</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in inapp %}
+                {% if app[6] != 'Черновик' %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ app[2] }}</td>
+                    <td>{{ app[3].strftime('%d-%m-%Y') }}</td>
+                    <td>{{ app[4].strftime('%d-%m-%Y') }}</td>
+                    <td>{{ app[6] }}</td>
+                    <td>{{ app[5].strftime('%d-%m-%Y') }}</td>
+                    <td>
+                        <a href="{{ url_for('appitem', aplication_id=app[0], user_login=app[1]) }}" class="btn btn-outline-primary">Просмотр</a>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

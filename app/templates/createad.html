@@ -1,0 +1,20 @@
+{% extends "menu.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block content %}
+<body>
+    <div class="container mt-5">
+        <h3 class="card-title text-center mb-4">{{title}}</h3>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            {{ form.category(class="form-select mb-3", value=form.category.data or request.args.get('category')) }}
+            {{ form.manufacturer(class="form-select", value=form.manufacturer.data or request.args.get('manufacturer')) }}
+            {{render_field(form.title)}}
+            {{render_field(form.price)}}
+            {{render_field(form.description)}}
+            {{ form.submit(class="btn btn-primary btn ") }}
+        </form>
+    </div>>
+</body>
+{% endblock %}
+

@@ -1,0 +1,23 @@
+{% extends "menu.html" %}
+
+{% block content %}
+<div class="container mt-4 text-center">
+    {% if current_user.is_authenticated %}
+    <span>С возвращением, {{current_user.name}}! </span>
+    {% endif %}
+    <h1>Добро пожаловать в систему аренды оборудования!</h1>
+    <p>Здесь вы можете сдавать или арендовать оборудование с удобным управлением.</p>
+    {% if not current_user.is_authenticated %}
+    <p>Чтобы использовать полный функционал - пройдите регистрацию.</p>
+    <div class="mt-3">
+        <a href="{{ url_for('register') }}" class="btn btn-primary">Регистрация</a>
+        <a href="{{ url_for('login') }}" class="btn btn-secondary">Вход</a>
+        <a href="{{ url_for('ads') }}" class="btn btn-secondary">Просмотреть объявления</a>
+    </div>
+    {% else %}
+    <div class="mt-3">
+        <a href="{{ url_for('ads') }}" class="btn btn-primary">Cмотреть объявления</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

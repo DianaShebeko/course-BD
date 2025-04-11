@@ -1,0 +1,26 @@
+{% extends "menu.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block content %}
+<body style="background-color: #f7f7f7; ">
+    <div class="container" style="min-height: 100vh;">
+        <div class="card w-100" style="max-width: 1170px; background-color: white;  margin-top: 20px;">
+            <div class="card-body">
+                <h2>{{ title }}</h2>
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <select name="rating" id="rating" class="form-control form-control-lg">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    {{ render_field(form.text, placeholder="Your text") }}
+                    {{ form.submit(class="btn btn-primary btn-lg") }}
+                </form>
+            </div>
+            </div>
+        </div>
+    </body>
+ {% endblock %}

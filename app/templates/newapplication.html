@@ -1,0 +1,52 @@
+{% extends "menu.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block content %}
+<body style="background-color: #f7f7f7;">
+    <div class="container" style="min-height: 100vh; display: flex; flex-direction: column;">
+        <div class="card w-100" style="max-width: 1170px; margin: 0 auto; background-color: white;">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Новая заявка</h3>
+                {% if form_is %}
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+
+                    <div class="mb-3">
+                        <label for="staticLandlord" class="form-label">Арендодатель: </label>
+                        <span id="staticLandlord">{{ landlordlogin }}</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="staticTenant" class="form-label">Арендатор: </label>
+                        <span id="staticTenant">{{ tenantlogin }}</span>
+                    </div>
+
+                    <div class="mb-3">
+                        {{ render_field(form.rentstartdate, class="form-control") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ render_field(form.rentenddate, class="form-control") }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="staticStatus" class="form-label">Статус заявки: </label>
+                        <span id="staticStatus">{{ status }}</span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        {{ render_field(form.submit, class="btn btn-primary") }}
+                    </div>
+                </form>
+
+                {% else %}
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">Заявка с арендатором {{landlordlogin}} уже существует как черновик</h4>
+                    <p> Вы можете добавить новые позиции или редактировать существующую заявку.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<body>
+    <!-- Выпадающее меню категорий -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <!-- Кнопка для раскрытия меню -->
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Категории
+                </button>
+                <ul class="dropdown-menu">
+                    <!-- Выводим список категорий -->
+                    {% for category in categories %}
+                    <li><a class="dropdown-item" href="{{ url_for('ads', category=category[0]) }}">{{ category[1] }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends "menu.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block content %}
+<body>
+    <div class="container mt-5">
+        <h3 class="card-title text-center mb-4"> Редактирование заявки #{{application_id}}</h3>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+
+            {% if form.rentstartdate.errors %}
+            {% for error in form.rentstartdate.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+            {% endif %}
+            {{render_field(form.rentstartdate, class="form-control form-control") }}
+
+            {% if form.rentenddate.errors %}
+            {% for error in form.rentenddate.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+            {% endif %}
+            {{render_field(form.rentenddate, class="form-control form-control") }}
+
+            {{ form.submit(class="btn btn-primary btn") }}
+        </form>
+    </div>
+</body>
+{% endblock %}

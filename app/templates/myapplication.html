@@ -1,0 +1,35 @@
+{% extends "menu.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Мои заявки</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Арендодатель</th>
+                    <th>Дата начала аренды</th>
+                    <th>Дата окончания аренды</th>
+                    <th>Статус заявки:</th>
+                    <th>Дата отправки заявки:</th>
+                    <th>Детали:</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in myapp %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ render_nav_item('user_profile', app[1], user_login=app[1])}}</td>
+                    <td>{{ app[3].strftime('%d-%m-%Y') }}</td>
+                    <td>{{ app[4].strftime('%d-%m-%Y') }}</td>
+                    <td>{{ app[6] }}</td>
+                    <td>{{ app[5].strftime('%d-%m-%Y') }}</td>
+                    <td>
+                        <a href="{{ url_for('appitem', aplication_id=app[0], user_login=app[2]) }}" class="btn btn-outline-primary">Просмотр</a> 
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
